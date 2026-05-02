@@ -1,0 +1,46 @@
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local WearRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Wear")
+local ChangeBody = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ChangeCharacterBody")
+
+local function getHairIds()
+    local character = LocalPlayer.Character
+    if not character then return {} end
+
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if not humanoid then return {} end
+
+    local desc = humanoid:GetAppliedDescription()
+    local hairIds = {}
+
+    if desc.HairAccessory and desc.HairAccessory ~= "" then
+        for id in string.gmatch(desc.HairAccessory, "%d+") do
+            table.insert(hairIds, tonumber(id))
+        end
+    end
+
+    if desc.HatAccessory and desc.HatAccessory ~= "" then
+        for id in string.gmatch(desc.HatAccessory, "%d+") do
+            table.insert(hairIds, tonumber(id))
+        end
+    end
+
+    return hairIds
+end
+
+        ChangeBody:InvokeServer({
+            104157277410075,
+            86280536086607,
+            81974054542977,
+            74524984742501,
+            122626731952977,
+            134082579
+        })
+
+        task.wait(0.2)
+
+        local hairIds = getHairIds()
+        for _, hairId in ipairs(hairIds) do
+            WearRemote:InvokeServer(hairId)
+        end
