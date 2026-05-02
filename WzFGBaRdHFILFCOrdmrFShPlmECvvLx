@@ -1,0 +1,12 @@
+-- by Joaozindev :)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local ChangeBody = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("ChangeCharacterBody")
+
+        ChangeBody:InvokeServer({
+            81881085814072,
+            79115019295211, 
+            106740492797177, 
+            81153927159685,
+            88668275797583,
+            115379341593655
+        })
